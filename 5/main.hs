@@ -12,7 +12,6 @@ main = do
     print items
     let question = splitArndThing "" items
     print question
-    {-
     let cargo = map (dropWhile (==' ')) (transpose [ map (!! 1) xs | xs <- map (splitBy3Col) (init (head question))])
     print cargo
     let instString = map (odds . splitArndThingR ' ') 
@@ -20,7 +19,6 @@ main = do
     let insts = [ [read y :: Int | y <- x] | x <- instString]
     print $ foldl applyMove cargo insts
     print $ map (head) (foldl applyMove cargo insts)
-    -}  
 
 applyMove stk mv = [ newcol is | is <- [0..length stk - 1]]
     where   (take,leave) = splitAt numcrates (stk !! fromL)
