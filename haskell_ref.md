@@ -6,6 +6,8 @@
 :l filename -- load file
 :r -- reload all files
 :m + Data.List -- import into global namespace
+
+:break 2 -- add breakpoint at line 2
 ```
 
 ### booleans
@@ -221,5 +223,14 @@ lines
 unlines
 words
 unwords
+
+```
+
+## Functions
+
+```haskell
+map (f), [list] -- applies function to all elements of list
+
+filter (p) [list] -- returns a list of elements that satisfy the predicate
 
 ```
