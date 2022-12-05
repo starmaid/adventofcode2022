@@ -38,6 +38,12 @@ even x
 
 let name = whatever --
 
+-- to and from types
+read "4"
+4
+show 4
+"4"
+
 -- lowest precedence function apply
 func (x ++ "bunch of operations to x")
 func $ x ++ "bunch of operations to x"
