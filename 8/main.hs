@@ -14,10 +14,15 @@ main = do
     let cols = transpose rows
     --print rows
     --print cols
-    --print $ [[isVisible rows cols i j | i <- [0..length cols-1]] | j <- [0..length rows-1]]
-    --print $ length (filter (True ==) [isVisible rows cols i j | i <- [0..length cols-1], j <- [0..length rows-1]])
+    print $ [[isVisible rows cols i j | i <- [0..length cols-1]] 
+                    | j <- [0..length rows-1]]
+    print $ length (filter (True ==) 
+        [isVisible rows cols i j 
+            | i <- [0..length cols-1], j <- [0..length rows-1]])
     -- 1870 is not the right answer. right answer for someone else
-    print $ maximum [countVisible rows cols i j | i <- [0..length cols-1], j <- [0..length rows-1]]
+    print $ maximum 
+        [countVisible rows cols i j 
+            | i <- [0..length cols-1], j <- [0..length rows-1]]
     
 countVisible :: [[Int]] -> [[Int]] -> Int -> Int -> Int
 countVisible rows cols x y = 
@@ -45,14 +50,15 @@ isVisible :: [[Int]] -> [[Int]] -> Int -> Int -> Bool
 isVisible rows cols x y = 
     or [
         -- from left
-        maximum' (take x (rows !! y)) < (rows !! y !! x),
+        maximum' (take x (rows !! y)) < height,
         -- from right
-        maximum' (drop (x+1) (rows !! y)) < (rows !! y) !! x,
+        maximum' (drop (x+1) (rows !! y)) < height,
         -- from top
-        maximum' (take y (cols !! x)) < (rows !! y) !! x,
+        maximum' (take y (cols !! x)) < height,
         -- from bottom
-        maximum' (drop (y+1) (cols !! x)) < (rows !! y) !! x
+        maximum' (drop (y+1) (cols !! x)) < height
     ]
+    where height = rows !! y !! x
 
 maximum' :: [Int] -> Int
 maximum' list
