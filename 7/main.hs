@@ -5,16 +5,26 @@ import System.IO
 import Data.List
 import Data.List.Split (splitOn)
 import Data.Maybe (maybe, fromJust, fromMaybe)
+import Data.Function (on)
 
 main = do  
-    contents <- readFile "input1"
+    contents <- readFile "input"
     let items = lines contents
 
     --print items
-    let root = Tnode "/" 0 "" [] []
+    let root = Tnode "" 0 "" [] []
     let (listl, head) = foldl (parseLine) ([root], root) items
-    print listl
-    print $ sum (filter (<=100000) (map (getweight listl) listl))
+    --print $ unlines ([ show l | l <- listl])
+    let weights = map (getweight listl) listl
+    --print weights
+    let list2 = [addWeight (listl !! x) (weights !! x) | x <- [0..length listl-1]]
+    --print $ unlines ([ show l | l <- list2])
+    let answer1 = sum (filter (<=100000) (map (getweight listl) listl))
+    let totalSpace = weight (getNodeByName "" list2)
+    print totalSpace
+    let needToFree = totalSpace - (70000000 - 30000000)
+    print needToFree
+    print $ minimumBy (compare `on` weight) [n | n <- list2, (weight n) > needToFree]
     -- 746558 is too low.
 
 getweight :: [Tnode] -> Tnode -> Int
@@ -31,7 +41,7 @@ parseLine (ftree,cnode) linestr
     -- if cd, change what the active node is
     | take 5 linestr == "$ cd " 
         = (ftree
-            , getNodeByName (drop 5 linestr) ftree)
+            , getNodeByName (getFullName cnode (drop 5 linestr)) ftree)
     -- if ls, dont do anything. prepare to add things to node
     | take 5 linestr == "$ ls " = (ftree,cnode)
     -- jf dir, create a directory node
@@ -48,8 +58,14 @@ parseLine (ftree,cnode) linestr
                     ,addFile cnode linestr)
     | otherwise = (ftree,cnode)
     where root = Tnode "" 0 "" [] []
-          nodename = drop 4 linestr
+          nodename = getFullName cnode (drop 4 linestr)
 
+
+getFullName :: Tnode -> [Char] -> [Char]
+getFullName p n = name p ++ "/" ++ n
+
+addWeight :: Tnode -> Int -> Tnode
+addWeight cnode weight = Tnode (name cnode) (weight) (parent cnode) (children cnode) (files cnode)
 
 addFile :: Tnode -> String -> Tnode
 addFile cnode str = Tnode (name cnode) (weight cnode) (parent cnode) (children cnode) ((parseFile str):(files cnode))

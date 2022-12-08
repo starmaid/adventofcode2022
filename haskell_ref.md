@@ -63,7 +63,24 @@ funcA . funcB $ x
 ## functions
 
 ```haskell
+-- plain
 funcname param1 param2 = operation
+
+-- pattern matching: 
+-- determines if a value conforms to some form
+factorial :: (Integral a) => a -> a  
+factorial 0 = 1  
+factorial 1 = 1
+factorial n = n * factorial (n - 1)  
+
+-- guards:
+-- test whether some property is true
+funcname param1 param2
+    | condition = operation
+    | condition = operation
+    | otherwise = operation
+    where a = param1 + param2
+          b = param1 * 3
 ```
 
 ## if
@@ -145,7 +162,7 @@ isSuffixOf
 elem
 notElem
 
-find
+find (predicate) [list] -- returns a maybe with the first element that satisfies that predicate
 delete x [list]-- deletes first occurance of x
 elemIndex
 elemIndices

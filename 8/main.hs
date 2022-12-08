@@ -4,8 +4,6 @@
 import System.IO
 import Data.List
 import Data.List.Split (splitOn)
-import Data.Maybe (maybe, fromJust, fromMaybe)
-import Data.Function (on)
 
 main = do  
     contents <- readFile "input1"
