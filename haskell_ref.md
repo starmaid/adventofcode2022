@@ -250,4 +250,24 @@ map (f), [list] -- applies function to all elements of list
 
 filter (p) [list] -- returns a list of elements that satisfy the predicate
 
+-- run a function (two inputs), and accumulate state that is passed to the function
+foldl (f acc x) (starting value) [list] -- left -> right
+foldr (f acc x) (starting value) [list] -- right -> left
+
+sum' xs = foldl (\acc x -> acc + x) 0 [3,5,2,1]
+11
+
+-- same as fold, but assumes initial value is the first element of the array
+foldl1 (f acc x) [list]
+foldr1 (f acc x) [list]
+
+-- just like fold, but creates an array of the accumulator instead of just consuming it
+scanl (f acc x) (starting value) [list]
+scanr (f acc x) (starting value) [list]
+
+scanl (+) 0 [3,5,2,1] 
+[0,3,8,10,11]
+
+scanl1 (f acc x) [list]
+scanr1 (f acc x) [list]
 ```
