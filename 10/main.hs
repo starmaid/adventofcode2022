@@ -7,10 +7,6 @@ import Data.List.Split (splitOn, chunksOf)
 import Data.Maybe (maybe, fromJust, fromMaybe)
 import Data.Function (on)
 
-import Debug.Trace (trace)
-debug :: c -> String -> c
-debug = flip trace
-
 main = do  
     contents <- readFile "input"
     let items = lines contents

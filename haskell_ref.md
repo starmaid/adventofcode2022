@@ -8,6 +8,11 @@
 :m + Data.List -- import into global namespace
 
 :break 2 -- add breakpoint at line 2
+:continue
+:step
+:delete *
+:delete 23
+
 ```
 
 ### booleans
