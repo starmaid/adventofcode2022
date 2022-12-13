@@ -3,7 +3,7 @@
 {-# HLINT ignore "Use infix" #-}
 import System.IO
 import Data.List
-import Data.List.Split (splitOn, dropInitBlank)
+import Data.List.Split (splitOn)
 import Data.Maybe (maybe, fromJust, fromMaybe)
 import Data.Function (on)
 
